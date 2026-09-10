@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ livro.titulo }}</title>
+</head>
+<body>
+    <a href="{{ url_for('catalog.index') }}">
+        Voltar para os livros
+    </a>
+    <h1>{{ livro.titulo }}</h1>
+    <p>
+        <strong>Autor:</strong> {{ livro.autor }}
+    </p>
+    <p>
+        <strong>Ano:</strong> {{ livro.ano }}
+    </p>
+    <hr>
+    <h2>Resenhas</h2>
+    {% for resenha in resenhas %}
+        <div>
+            <p>
+                <strong>{{ resenha.usuario }}</strong>
+            </p>
+
+            <p>
+                Nota: {{ resenha.nota }}/5
+            </p>
+
+            <p>
+                {{ resenha.texto }}
+            </p>
+        </div>
+        <hr>
+    {% else %}
+        <p>Este livro ainda não possui resenhas.</p>
+    {% endfor %}
+    <h2>Nova resenha</h2>
+    <form method="POST"
+          action="{{ url_for('resenhar', livro_id=livro.id) }}">
+
+        <label for="nota">Nota:</label>
+        <input
+            type="number"
+            id="nota"
+            name="nota"
+            min="1"
+            max="5"
+            required
+        >
+        <br><br>
+        <label for="texto">Resenha:</label>
+        <br>
+        <textarea
+            id="texto"
+            name="texto"
+            rows="5"
+            cols="50"
+            required
+        ></textarea>
+        <br><br>
+        <button type="submit">Enviar resenha</button>
+    </form>
+</body>
+</html>

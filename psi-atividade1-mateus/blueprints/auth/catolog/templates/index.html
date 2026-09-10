@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Livros</title>
+</head>
+<body>
+
+    <h1>Catálogo de Livros</h1>
+
+    <form method="GET" action="{{ url_for('catalog.index') }}">
+        <input
+            type="text"
+            name="q"
+            placeholder="Buscar livro..."
+            value="{{ q }}"
+        >
+        <button type="submit">Buscar</button>
+    </form>
+
+    <h2>Livros</h2>
+
+    {% for livro in livros %}
+        <div>
+            <a href="{{ url_for('catalog.ver_livro', livro_id=livro.id) }}">
+                {{ livro.titulo }}
+            </a>
+
+            <p>
+                Autor: {{ livro.autor }}<br>
+                Ano: {{ livro.ano }}
+            </p>
+        </div>
+    {% else %}
+        <p>Nenhum livro encontrado.</p>
+    {% endfor %}
+
+</body>
+</html>
